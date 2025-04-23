@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INTR™ – Tracker</title>
+  <link rel="stylesheet" href="styles.css" />
+
+<style>
+  .spinner {
+    border: 4px solid rgba(0, 255, 255, 0.3);
+    border-top: 4px solid #00ffff;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+<div id="globalSpinner" class="global-spinner hidden">
+  <div class="spinner"></div>
+</div>
+
+  <div class="container">
+    <div class="main-content">
+      <header>
+        <h1>INTR™ TCKR</h1>
+        <button onclick="connectWallet()">Connect Wallet</button>
+        <input type="text" id="token-input" placeholder="Enter Token Symbol"/>
+        <input type="text" id="api-input" placeholder="API URL"/>
+        <input type="text" id="chain-input" placeholder="Chain"/>
+        <button onclick="addToken()">Save Token</button>
+        <button onclick="refreshTokens()">Refresh</button>
+      </header>
+      <div id="tokenGrid">
+<div class="transaction-feed" style="margin-top:30px;">
+  <h3 style="text-align:center;">Recent Transactions</h3><div style="text-align:right;"><a href="#" onclick="showCompareModal()">Compare Token Pairs</a></div>
+  <div id="transactionList" style="max-height:300px; overflow:auto; font-size:14px; color:#0ff;"></div>
+</div>
+
+<div style="text-align:center; margin-top:10px;">
+  <small id="countdownTimer" style="color:#ccc;">Next update in 10s</small>
+</div>
+</div>
+      <div id="transactionSummary" class="transaction-summary">
+        <h2>Token Flow Summary</h2>
+        <div class="summary-card">
+          <p><strong>Total Incoming:</strong> <span id="incomingTotal">Loading...</span></p>
+          <p><strong>Total Outgoing:</strong> <span id="outgoingTotal">Loading...</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+
+<div style="text-align:center; margin-top:20px;">
+  <button onclick="exportToCSV()" style="margin-top:10px;">Download Token Data (CSV)</button>
+</div>
+
+
+<div style="text-align:center; margin-top:10px;">
+  <button onclick="manualRefresh()">🔄 Refresh Now</button>
+</div>
+
+
+<!-- Compare Token Pairs Modal -->
+<div id="compareModal" class="hidden" style="position:fixed;top:10%;left:50%;transform:translateX(-50%);
+background:#111;border:2px solid #0ff;padding:20px;width:90%;max-width:600px;z-index:9999;color:#0ff;">
+  <h3 style="text-align:center;">Compare Token Pairs</h3>
+  <div style="display:flex;gap:10px;margin:10px 0;">
+    <select id="compareTokenA" onchange="autoCompareTokens()" style="flex:1;"></select>
+    <select id="compareTokenB" onchange="autoCompareTokens()" style="flex:1;"></select>
+  </div>
+  <button id="compareBtn" onclick="compareTokens()" disabled>🔍 Compare</button>
+  <div id="compareResult" style="margin-top:20px;font-size:14px;"></div>
+  <div style="text-align:center;margin-top:10px;">
+    <button onclick="document.getElementById('compareModal').classList.add('hidden')">Close</button>
+  </div>
+</div>
+
+</body>
+</html>
