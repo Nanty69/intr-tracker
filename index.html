@@ -23,6 +23,15 @@
 </style>
 </head>
 <body>
+<header style="display:flex;justify-content:space-between;align-items:center;padding:8px 16px;
+background:#111;border-bottom:2px solid #0ff;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <img src="logo.jpg" alt="Logo" style="width:32px;height:32px;">
+    <span style="color:#0ff;font-weight:bold;">INTR™ TCKR</span>
+  </div>
+  <div id="clock" style="color:#0ff;font-size:14px;"></div>
+</header>
+
 <header><div class='logo-header'><img src='logo.jpg' alt='Logo'><h1>INTR™ TCKR</h1></div></header>
 <div id="globalSpinner" class="global-spinner hidden">
   <div class="spinner"></div>
@@ -87,3 +96,14 @@ background:#111;border:2px solid #0ff;padding:20px;width:90%;max-width:600px;z-i
 
 </body>
 </html>
+<script>
+function updateClock() {
+  const clock = document.getElementById('clock');
+  if (clock) {
+    const now = new Date();
+    clock.textContent = now.toLocaleTimeString();
+  }
+}
+setInterval(updateClock, 1000);
+updateClock();
+</script>
